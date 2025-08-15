@@ -1,0 +1,74 @@
+Deploying Spring Boot App on AWS EC2 - Commands & Descriptions
+
+✅ 1. Upload JAR to EC2
+scp -i <your-key.pem> demo.jar ec2-user@<public-ip>:/home/ec2-user/
+
+
+
+
+
+
+⚡️ 2. SSH into EC2 Instance
+Linux/Mac:
+ssh -i <your-key.pem> ec2-user@<public-ip>
+
+
+Windows (Using PowerShell or CMD):
+Open PowerShell
+
+
+Navigate to the folder containing your .pem file
+
+
+Run:
+
+
+ssh -i .\your-key.pem ec2-user@<public-ip>
+
+
+Windows (Using PuTTY):
+Convert .pem to .ppk using PuTTYgen
+
+
+Open PuTTY
+
+
+Set Host Name: ec2-user@<public-ip>
+
+
+Go to Connection > SSH > Auth
+
+
+Browse and select .ppk file
+
+
+Click Open to connect
+
+
+
+📦 3. Install Java (Amazon Linux 2, Java 17)
+sudo yum update -y
+sudo amazon-linux-extras enable corretto17
+sudo yum install java-17-amazon-corretto -y
+java -version
+
+
+
+🚀 4. Run Spring Boot JAR with nohup
+nohup java -jar demo.jar > output.log 2>&1 &
+
+
+Explanation:
+nohup: Prevents the app from stopping after logout
+
+
+> output.log: Saves app logs
+
+
+2>&1: Also saves error logs
+
+
+&: Runs in background
+
+
+
